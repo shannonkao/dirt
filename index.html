@@ -96,7 +96,10 @@
                 sidewalk: {
                     position: "right",
                     run: async () => { 
-                        const sidewalkContent = document.getElementById("sidewalk").getElementsByClassName("window-content")[0];
+                        const sidewalkWindow = document.getElementById("sidewalk");
+                        sidewalkWindow.classList.add("done");
+
+                        const sidewalkContent = sidewalkWindow.getElementsByClassName("window-content")[0];
                         const gardenContent = document.getElementById("garden").getElementsByClassName("window-content")[0];
                         for (let i = 0; i < 7; i++) {
                             sidewalkContent.innerHTML = `🪱🪱🪱🌱🌱${spacer(3 * i)}🪱`;
@@ -134,8 +137,7 @@
                         gardenContent.innerHTML = "dirt 🪱 🪱<br>dirt dirt 🪱<br>dirt 🪱 dirt"
                         await timeout(SPEED);
                         sidewalkContent.innerHTML = `${spacer(6)}🌱🌱`;
-                        gardenContent.innerHTML = "dirt 🪱 🪱<br>🪱 dirt 🪱<br>dirt 🪱 dirt"
-                        await timeout(SPEED);
+                        gardenContent.innerHTML = "dirt 🪱 🪱<br>🪱 dirt 🪱<br>dirt 🪱 dirt";
                     }
                 }
             },
@@ -187,7 +189,7 @@
                         const first = w.id < targetWindow.id ? w : targetWindow;
                         const second = w.id < targetWindow.id ?  targetWindow : w;
                         const interaction = INTERACTIONS[first.id]?.[second.id]
-                        if (!!interaction && getRelativePosition(first, second) == interaction.position) {
+                        if (!!interaction && getRelativePosition(first, second) == interaction.position && !first.classList.contains("done") && !second.classList.contains("done")) {
                             interaction.run();
                         }
                     }
