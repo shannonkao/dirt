@@ -68,6 +68,7 @@
         border: 2px outset var(--light-grey);
         color: #fff;
         margin-right: 0.25rem;
+        width: 4rem;
     }
 
     .weather-day:last-child {
@@ -354,7 +355,7 @@
             let currentDow = new Date().getDay();
             for (let day of weatherDows) {
                 day.innerHTML = DAYS_OF_WEEK[currentDow];
-                currentDow = (currentDow + 1) % 6;
+                currentDow = (currentDow + 1) % 7;
             }
 
             let currentWindow = undefined;
