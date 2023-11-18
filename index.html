@@ -2,9 +2,10 @@
     body,
     html {
         font-size: 16px;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: sans-serif;
         --light-grey: #ccc;
         --grey: #bababa;
+        --light-blue: #62b3f1;
     }
 
     .spacer {
@@ -21,7 +22,7 @@
 
     .window-header {
         display: flex;
-        background-image: linear-gradient(to right, #010081, #62b3f1);
+        background-image: linear-gradient(to right, #010081, var(--light-blue));
         padding: 0.25rem;
         align-items: flex-end;
         cursor: pointer;
@@ -49,8 +50,115 @@
         cursor: pointer;
         margin-left: 0.25rem;
     }
+
     .window button[disabled] {
         cursor: not-allowed;
+    }
+
+    .weather-week {
+        display: flex;
+    }
+
+    .weather-day {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+        background-color: var(--light-blue);
+        border: 2px outset var(--light-grey);
+        color: #fff;
+        margin-right: 0.25rem;
+    }
+
+    .weather-day:last-child {
+        margin-right: 0;
+    }
+
+    .weather-day>span:nth-child(2) {
+        font-size: 0.75rem;
+    }
+
+    .weather-day>span:nth-child(3) {
+        font-size: 2rem;
+    }
+
+    .wiggle {
+        display: inline-block;
+        -webkit-animation: wiggle 1s linear infinite;
+        -moz-animation: wiggle 1s linear infinite;
+        animation: wiggle 1s linear infinite;
+    }
+
+
+    @-moz-keyframes wiggle {
+        10% {
+            -moz-transform: rotate(10deg);
+        }
+
+        40% {
+            -moz-transform: rotate(-20deg);
+        }
+
+        60% {
+            -moz-transform: rotate(20deg);
+        }
+
+        80% {
+            -moz-transform: rotate(-20deg);
+        }
+
+        100% {
+            -moz-transform: rotate(0deg);
+        }
+    }
+
+    @-webkit-keyframes wiggle {
+        10% {
+            -webkit-transform: rotate(10deg);
+        }
+
+        40% {
+            -webkit-transform: rotate(-20deg);
+        }
+
+        60% {
+            -webkit-transform: rotate(20deg);
+        }
+
+        80% {
+            -webkit-transform: rotate(-20deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(0deg);
+        }
+    }
+
+    @keyframes wiggle {
+        10% {
+            -webkit-transform: rotate(10deg);
+            transform: rotate(10deg);
+        }
+
+        40% {
+            -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+        }
+
+        60% {
+            -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+        }
+
+        80% {
+            -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
     }
 </style>
 <html>
@@ -85,6 +193,48 @@
                 dirt dirt dirt
             </div>
         </div>
+        <div id="weather" class="window">
+            <div class="window-header">
+                <span class="window-title">5-Day Weather Forecast</span>
+                <span class="spacer"></span>
+                <button disabled>O</button>
+                <button disabled>X</button>
+            </div>
+            <div class="window-content">
+                <div class="weather-week">
+                    <div class="weather-day">
+                        <span>48/<strong>54</strong></span>
+                        <span>Party cloudy</span>
+                        <span>⛅</span>
+                        <span class="weather-dow">MON</span>
+                    </div>
+                    <div class="weather-day">
+                        <span>37/<strong>51</strong></span>
+                        <span>Mostly sunny</span>
+                        <span>🌤️</span>
+                        <span class="weather-dow">TUE</span>
+                    </div>
+                    <div class="weather-day">
+                        <span>44/<strong>50</strong></span>
+                        <span>PM rain</span>
+                        <span>🌧️</span>
+                        <span class="weather-dow">WED</span>
+                    </div>
+                    <div class="weather-day">
+                        <span>37/<strong>47</strong></span>
+                        <span>Chance rain</span>
+                        <span>🌦️</span>
+                        <span class="weather-dow">THU</span>
+                    </div>
+                    <div class="weather-day">
+                        <span>35/<strong>47</strong></span>
+                        <span>Party cloudy</span>
+                        <span>⛅</span>
+                        <span class="weather-dow">FRI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -93,15 +243,14 @@
         const SPEED = 300;
         const INTERACTIONS = {
             garden: {
-                sidewalk: {
-                    position: "right",
-                    run: async () => { 
-                        const sidewalkWindow = document.getElementById("sidewalk");
-                        sidewalkWindow.classList.add("done");
-
-                        const sidewalkContent = sidewalkWindow.getElementsByClassName("window-content")[0];
+                sidewalk: [{
+                    done: false,
+                    position: "left",
+                    unlocks: ["garden-sidewalk-1"],
+                    run: async () => {
+                        const sidewalkContent = document.getElementById("sidewalk").getElementsByClassName("window-content")[0];
                         const gardenContent = document.getElementById("garden").getElementsByClassName("window-content")[0];
-                        for (let i = 0; i < 7; i++) {
+                        for (let i = 0; i < 6; i++) {
                             sidewalkContent.innerHTML = `🪱🪱🪱🌱🌱${spacer(3 * i)}🪱`;
                             await timeout(SPEED);
                         }
@@ -112,7 +261,7 @@
                         await timeout(SPEED);
                         sidewalkContent.innerHTML = `🪱🪱  🌱🪱`;
                         await timeout(SPEED);
-                        for (let i = 0; i < 8; i++) {
+                        for (let i = 0; i < 7; i++) {
                             sidewalkContent.innerHTML = `🪱🪱  🌱🌱${spacer(3 * i)}🪱`;
                             await timeout(SPEED);
                         }
@@ -139,10 +288,57 @@
                         sidewalkContent.innerHTML = `${spacer(6)}🌱🌱`;
                         gardenContent.innerHTML = "dirt 🪱 🪱<br>🪱 dirt 🪱<br>dirt 🪱 dirt";
                     }
-                }
+                }, {
+                    done: true,
+                    position: "top",
+                    extra: [{ id: "weather", position: "bottom" }],
+                    prereqs: ["garden-sidewalk-0"],
+                    unlocks: ["garden-sidewalk-0"],
+                    run: async () => {
+                        const sidewalkContent = document.getElementById("sidewalk").getElementsByClassName("window-content")[0];
+                        const gardenContent = document.getElementById("garden").getElementsByClassName("window-content")[0];
+                        let sidewalkString = sidewalkContent.innerHTML.trim();
+                        for (let i = 0; i < 2; i++) {
+                            sidewalkContent.innerHTML = `💧${spacer(1)}🌱🌱${spacer(3)}💧`;
+                            await timeout(SPEED);
+                            sidewalkContent.innerHTML = `${spacer(1)}💧🌱🌱💧💧`;
+                            await timeout(SPEED);
+                            sidewalkContent.innerHTML = `${spacer(1)}💧💧🌱${spacer(4)}💧`;
+                            await timeout(SPEED);
+                            if (i == 0) {
+                                gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt 🪱 🪱</span><br>🪱 dirt 🪱<br>dirt 🪱 dirt";
+                            } else {
+                                gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt 🪱 🪱<br>🪱 dirt 🪱</span><br>dirt 🪱 dirt";
+                            }
+                        }
+                        sidewalkContent.innerHTML = `${spacer(6)}🌱🌱`;
+                        await timeout(SPEED);
+                        await timeout(SPEED);
+                        await timeout(SPEED);
+                        gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt <span class='wiggle'>🪱</span> 🪱<br>🪱 dirt 🪱</span><br>dirt 🪱 dirt";
+                        await timeout(SPEED * 2);
+                        gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt <span class='wiggle'>🪱</span> <span class='wiggle'>🪱</span><br>🪱 dirt 🪱</span><br>dirt 🪱 dirt";
+                        await timeout(SPEED * 2);
+                        sidewalkContent.innerHTML = `${spacer(4)}🪱🌱🌱`;
+                        gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt <span class='wiggle'>🪱</span><br><span class='wiggle'>🪱</span> dirt 🪱</span><br>dirt 🪱 dirt";
+                        await timeout(SPEED * 2);
+                        sidewalkContent.innerHTML = `🪱${spacer(2)}🪱🌱🌱`;
+                        gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt<br><span class='wiggle'>🪱</span> dirt 🪱</span><br>dirt <span class='wiggle'>🪱</span> dirt";
+                        await timeout(SPEED * 2);
+                        sidewalkContent.innerHTML = `🪱${spacer(2)}🪱🌱🌱🪱`;
+                        gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt<br>dirt dirt 🪱</span><br>dirt <span class='wiggle'>🪱</span> dirt";
+                        await timeout(SPEED * 2);
+                        sidewalkContent.innerHTML = `🪱🪱🪱🌱🌱🪱`;
+                        gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt<br>dirt dirt 🪱</span><br>dirt dirt dirt";
+                        await timeout(SPEED * 2);
+                        gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt</span><br>dirt dirt 🪱<br>dirt dirt dirt";
+                        await timeout(SPEED * 2);
+                        gardenContent.innerHTML = "dirt dirt dirt<br>dirt dirt 🪱<br>dirt dirt dirt";
+                    }
+                }]
             },
         };
-        
+
         function timeout(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         };
@@ -151,28 +347,37 @@
             return new Array(count).fill("&nbsp;").join("");
         }
 
+        const DAYS_OF_WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
         (function () {
-            let currentWindow =  undefined;
+            let weatherDows = document.getElementsByClassName("weather-dow");
+            let currentDow = new Date().getDay();
+            for (let day of weatherDows) {
+                day.innerHTML = DAYS_OF_WEEK[currentDow];
+                currentDow = (currentDow + 1) % 6;
+            }
+
+            let currentWindow = undefined;
             let mouseOffset = [0, 0];
             let zIndex = 1;
             const windows = document.getElementsByClassName("window");
             for (let w of windows) {
                 w.style.left = 20 + Math.random() * 500;
-                w.style.top = 20 + Math.random() * 200;
+                w.style.top = 20 + Math.random() * 300;
 
                 const header = w.getElementsByClassName("window-header")[0];
                 header.addEventListener('mousedown', (e) => {
                     e.preventDefault()
                     currentWindow = w;
-                    mouseOffset[0] =  e.offsetX;
-                    mouseOffset[1] =  e.offsetY;
+                    mouseOffset[0] = e.offsetX;
+                    mouseOffset[1] = e.offsetY;
                     zIndex += 1;
                     currentWindow.style.zIndex = zIndex;
                 })
                 document.addEventListener('mouseup', (e) => {
                     e.preventDefault();
                     checkInteractions(currentWindow);
-                    currentWindow = undefined; 
+                    currentWindow = undefined;
                 })
                 document.addEventListener('mousemove', (e) => {
                     if (!!currentWindow) {
@@ -187,13 +392,50 @@
                 if (!!targetWindow) {
                     for (let w of windows) {
                         const first = w.id < targetWindow.id ? w : targetWindow;
-                        const second = w.id < targetWindow.id ?  targetWindow : w;
-                        const interaction = INTERACTIONS[first.id]?.[second.id]
-                        if (!!interaction && getRelativePosition(first, second) == interaction.position && !first.classList.contains("done") && !second.classList.contains("done")) {
-                            interaction.run();
+                        const second = w.id < targetWindow.id ? targetWindow : w;
+                        const interactionList = INTERACTIONS[first.id]?.[second.id]
+                        if (!!interactionList) {
+                            for (let interaction of interactionList) {
+                                if (canRunInteraction(interaction, first, second)) {
+                                    interaction.done = true;
+                                    interaction.run();
+                                    if (interaction.unlocks) {
+                                        for (let item of interaction.unlocks) {
+                                            const parts = item.split("-");
+                                            INTERACTIONS[parts[0]][parts[1]][parseInt(parts[2])].done = false;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+            }
+
+            const canRunInteraction = (interaction, first, second) => {
+                if (!interaction) return false;
+
+                const { done, position, extra, prereqs } = interaction;
+
+                if (done || getRelativePosition(second, first) !== position) { return false; }
+                if (extra && !checkPositions(interaction, second)) { return false; }
+                if (prereqs) {
+                    for (let req of prereqs) {
+                        const parts = req.split("-");
+                        if (!INTERACTIONS[parts[0]][parts[1]][parseInt(parts[2])].done) return false
+                    }
+                }
+
+                return true;
+            }
+
+            const checkPositions = (interaction, w) => {
+                let valid = true;
+                interaction.extra.forEach(pos => {
+                    const testWindow = document.getElementById(pos.id);
+                    valid = valid && getRelativePosition(w, testWindow) == pos.position;
+                });
+                return valid;
             }
 
             // Position of w1 RELATIVE TO w2
@@ -204,18 +446,18 @@
                 // TODO maybe work margin into top/bottom check
                 if (((rect1.top > rect2.top && rect1.bottom < rect2.bottom) || (rect2.top > rect1.top && rect2.bottom < rect1.bottom))
                     && Math.abs(rect1.right - rect2.left) < MARGIN) {
-                        return "left"
+                    return "left"
                 } else if (((rect1.top > rect2.top && rect1.bottom < rect2.bottom) || (rect2.top > rect1.top && rect2.bottom < rect1.bottom))
                     && Math.abs(rect1.left - rect2.right) < MARGIN) {
-                        return "right"
+                    return "right"
                 } else if (((rect1.left > rect2.left && rect1.right < rect2.right) || (rect2.left > rect1.left && rect2.right < rect1.right))
                     && Math.abs(rect1.bottom - rect2.top) < MARGIN) {
-                        return "top"
+                    return "top"
                 } else if (((rect1.left > rect2.left && rect1.right < rect2.right) || (rect2.left > rect1.left && rect2.right < rect1.right))
                     && Math.abs(rect1.top - rect2.bottom) < MARGIN) {
-                        return "bottom"
+                    return "bottom"
                 } else {
-                        return undefined;
+                    return undefined;
                 }
             }
         })();
