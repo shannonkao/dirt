@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>Dirt</title>
     <link href="https://fonts.cdnfonts.com/css/microsoft-sans-serif" rel="stylesheet">
     <style>
         body,
@@ -88,77 +89,51 @@
 
         .wiggle {
             display: inline-block;
-            -webkit-animation: wiggle 1s linear infinite;
-            -moz-animation: wiggle 1s linear infinite;
-            animation: wiggle 1s linear infinite;
+            -webkit-animation: wiggle 0.5s linear infinite;
+            -moz-animation: wiggle 0.5s linear infinite;
+            animation: wiggle 0.5s linear infinite;
         }
 
 
         @-moz-keyframes wiggle {
-            10% {
-                -moz-transform: rotate(10deg);
-            }
-
-            40% {
-                -moz-transform: rotate(-20deg);
-            }
-
-            60% {
-                -moz-transform: rotate(20deg);
-            }
-
-            80% {
-                -moz-transform: rotate(-20deg);
-            }
-
-            100% {
-                -moz-transform: rotate(0deg);
-            }
+            10% { -moz-transform: rotate(5deg); }
+            30% { -moz-transform: rotate(-10deg); }
+            50% { -moz-transform: rotate(10deg); }
+            70% { -moz-transform: rotate(-10deg); }
+            90% { -moz-transform: rotate(10deg); }
+            100% { -moz-transform: rotate(0deg); }
         }
 
         @-webkit-keyframes wiggle {
-            10% {
-                -webkit-transform: rotate(10deg);
-            }
-
-            40% {
-                -webkit-transform: rotate(-20deg);
-            }
-
-            60% {
-                -webkit-transform: rotate(20deg);
-            }
-
-            80% {
-                -webkit-transform: rotate(-20deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(0deg);
-            }
+            10% { -webkit-transform: rotate(5deg); }
+            30% { -webkit-transform: rotate(-10deg); }
+            50% { -webkit-transform: rotate(10deg); }
+            70% { -webkit-transform: rotate(-10deg); }
+            90% { -webkit-transform: rotate(10deg); }
+            100% { -webkit-transform: rotate(0deg); }
         }
 
         @keyframes wiggle {
             10% {
+                -webkit-transform: rotate(5deg);
+                transform: rotate(5deg);
+            }
+            30% {
+                -webkit-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+            }
+            50% {
                 -webkit-transform: rotate(10deg);
                 transform: rotate(10deg);
             }
-
-            40% {
-                -webkit-transform: rotate(-20deg);
-                transform: rotate(-20deg);
+            70% {
+                -webkit-transform: rotate(-10deg);
+                transform: rotate(-10deg);
             }
-
-            60% {
-                -webkit-transform: rotate(20deg);
-                transform: rotate(20deg);
+            90% {
+                -webkit-transform: rotate(-10deg);
+                transform: rotate(-10deg);
             }
-
-            80% {
-                -webkit-transform: rotate(-20deg);
-                transform: rotate(-20deg);
-            }
-
             100% {
                 -webkit-transform: rotate(0deg);
                 transform: rotate(0deg);
@@ -183,7 +158,7 @@
         </div>
         <div id="garden" class="window">
             <div class="window-header">
-                <span class="window-title">Garden</span>
+                <span class="window-title">A little garden</span>
                 <span class="spacer"></span>
                 <button disabled>O</button>
                 <button disabled>X</button>
