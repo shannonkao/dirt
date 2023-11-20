@@ -93,6 +93,10 @@ html {
     animation: wiggle 0.5s linear infinite;
 }
 
+#garden .window-content {
+    line-height: 1.5rem;
+}
+
 
 @-moz-keyframes wiggle {
     10% { -moz-transform: rotate(5deg); }
