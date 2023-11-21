@@ -39,7 +39,7 @@ body, html, button {
 }
 
 .window {
-    display: inline-block;
+    display: block;
     position: absolute;
     border: 2px outset var(--light-grey);
     background-color: var(--grey);
