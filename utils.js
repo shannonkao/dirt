@@ -9,6 +9,8 @@ const checkInteractions = (targetWindow, windows) => {
                     if (canRunInteraction(interaction, first, second)) {
                         interaction.done = true;
                         interaction.run();
+                        // TODO maybe when done running interaction, do another check? 
+                        // queue??? will this lead to undefined cascading behavior at higher window n 
                         if (interaction.unlocks) {
                             for (let item of interaction.unlocks) {
                                 const parts = item.split("-");
