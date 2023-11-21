@@ -7,7 +7,7 @@ const garden_sidewalk = async () => {
     const gardenWindow = document.getElementById("garden");
     const gardenContent = gardenWindow.getElementsByClassName("window-content")[0];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         sidewalkContent.innerHTML = `🪱🪱🪱🌱🌱${emoji_spacer(i)}🪱`;
         await timeout(SPEED);
     }
@@ -19,7 +19,7 @@ const garden_sidewalk = async () => {
     await timeout(SPEED);
     sidewalkContent.innerHTML = `🪱🪱${emoji_spacer(1)}🌱🪱`;
     await timeout(SPEED);
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         sidewalkContent.innerHTML = `🪱🪱${emoji_spacer(1)}🌱🌱${emoji_spacer(i)}🪱`;
         await timeout(SPEED);
     }
@@ -35,15 +35,15 @@ const garden_sidewalk = async () => {
     await timeout(SPEED);
     sidewalkContent.innerHTML = `${emoji_spacer(3)}🌱🪱🪱`;
     await timeout(SPEED);
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
         sidewalkContent.innerHTML = `${emoji_spacer(3)}🌱🌱${emoji_spacer(i)}🪱🪱`;
         await timeout(SPEED);
     }
-    sidewalkContent.innerHTML = `${emoji_spacer(3)}🌱🌱${emoji_spacer(2)}🪱`;
+    sidewalkContent.innerHTML = `${emoji_spacer(3)}🌱🌱${emoji_spacer(3)}🪱`;
     sidewalkFooter.innerHTML = "1 object(s)";
     gardenContent.innerHTML = "dirt 🪱 🪱<br>dirt dirt 🪱<br>dirt 🪱 dirt"
     await timeout(SPEED);
-    sidewalkContent.innerHTML = `${emoji_spacer(3)}🌱🌱`;
+    sidewalkContent.innerHTML = `${emoji_spacer(4)}🌱🌱`;
     sidewalkFooter.innerHTML = "0 object(s)";
     gardenContent.innerHTML = "dirt 🪱 🪱<br>🪱 dirt 🪱<br>dirt 🪱 dirt";
 }

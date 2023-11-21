@@ -91,7 +91,6 @@
 
 
     <script>
-        const MARGIN = 10;
         const DAYS_OF_WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
         (function () {
@@ -109,7 +108,7 @@
             let zIndex = 1;
             const windows = document.getElementsByClassName("window");
             for (let w of windows) {
-                w.style.left = 20 + Math.random() * (document.body.scrollWidth * 0.75);
+                w.style.left = 20 + Math.random() * (document.body.scrollWidth * 0.6);
                 w.style.top = 20 + Math.random() * (document.body.scrollHeight * 0.5);
 
                 const header = w.getElementsByClassName("window-header")[0];

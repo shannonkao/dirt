@@ -9,8 +9,8 @@ const checkInteractions = (targetWindow, windows) => {
                     if (canRunInteraction(interaction, first, second)) {
                         interaction.done = true;
                         interaction.run();
-                        // TODO maybe when done running interaction, do another check? 
-                        // queue??? will this lead to undefined cascading behavior at higher window n 
+                        // TODO maybe when done running interaction, do another check?
+                        // queue??? will this lead to undefined cascading behavior at higher window n
                         if (interaction.unlocks) {
                             for (let item of interaction.unlocks) {
                                 const parts = item.split("-");
@@ -50,22 +50,24 @@ const checkPositions = (interaction, w) => {
     return valid;
 }
 
+const MARGIN = 10;
+
 // Position of w1 RELATIVE TO w2
 // [w1] [w2] -> "left"
 const getRelativePosition = (w1, w2) => {
     const rect1 = w1.getBoundingClientRect();
     const rect2 = w2.getBoundingClientRect();
     // TODO maybe work margin into top/bottom check
-    if (((rect1.top > rect2.top && rect1.bottom < rect2.bottom) || (rect2.top > rect1.top && rect2.bottom < rect1.bottom))
+    if (((rect1.top + MARGIN > rect2.top && rect1.bottom < rect2.bottom + MARGIN) || (rect2.top + MARGIN > rect1.top && rect2.bottom < rect1.bottom + MARGIN))
         && Math.abs(rect1.right - rect2.left) < MARGIN) {
         return "left"
-    } else if (((rect1.top > rect2.top && rect1.bottom < rect2.bottom) || (rect2.top > rect1.top && rect2.bottom < rect1.bottom))
+    } else if (((rect1.top + MARGIN > rect2.top && rect1.bottom < rect2.bottom + MARGIN) || (rect2.top + MARGIN > rect1.top && rect2.bottom < rect1.bottom + MARGIN))
         && Math.abs(rect1.left - rect2.right) < MARGIN) {
         return "right"
-    } else if (((rect1.left > rect2.left && rect1.right < rect2.right) || (rect2.left > rect1.left && rect2.right < rect1.right))
+    } else if (((rect1.left + MARGIN > rect2.left && rect1.right < rect2.right + MARGIN) || (rect2.left + MARGIN > rect1.left && rect2.right < rect1.right + MARGIN))
         && Math.abs(rect1.bottom - rect2.top) < MARGIN) {
         return "top"
-    } else if (((rect1.left > rect2.left && rect1.right < rect2.right) || (rect2.left > rect1.left && rect2.right < rect1.right))
+    } else if (((rect1.left + MARGIN > rect2.left && rect1.right < rect2.right + MARGIN) || (rect2.left + MARGIN > rect1.left && rect2.right < rect1.right + MARGIN))
         && Math.abs(rect1.top - rect2.bottom) < MARGIN) {
         return "bottom"
     } else {
