@@ -43,7 +43,7 @@ const garden_sidewalk = async () => {
     sidewalkFooter.innerHTML = "1 object(s)";
     gardenContent.innerHTML = "dirt 🪱 🪱<br>dirt dirt 🪱<br>dirt 🪱 dirt"
     await timeout(SPEED);
-    sidewalkContent.innerHTML = `${emoji_spacer(4)}🌱🌱`;
+    sidewalkContent.innerHTML = `${emoji_spacer(3)}🌱🌱`;
     sidewalkFooter.innerHTML = "0 object(s)";
     gardenContent.innerHTML = "dirt 🪱 🪱<br>🪱 dirt 🪱<br>dirt 🪱 dirt";
 }
@@ -54,7 +54,7 @@ const sidewalk_weather = async () => {
         await timeout(SPEED);
         sidewalkContent.innerHTML = `${emoji_spacer(2)}💧🌱🌱💧💧`;
         await timeout(SPEED);
-        sidewalkContent.innerHTML = `${emoji_spacer(1)}💧💧🌱${emoji_spacer(2)}💧`;
+        sidewalkContent.innerHTML = `${emoji_spacer(1)}💧💧🌱💧${emoji_spacer(2)}💧`;
         await timeout(SPEED);
     }
     sidewalkContent.innerHTML = `💧${emoji_spacer(1)}💧🌱🌱${emoji_spacer(1)}💧💧`;
