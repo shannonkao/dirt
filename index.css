@@ -196,6 +196,12 @@ body, html, button {
     flex: 1;
     white-space: normal;
     position: relative;
+    padding-bottom: 10px;
+}
+
+.wizard-demo {
+    position: relative;
+    height: 85px;
 }
 
 .wizard-window {
@@ -204,7 +210,7 @@ body, html, button {
 
 #wizard-demo-1 {
     position: absolute;
-    top: 100px;
+    top: 10px;
     right: 20px;
     width: 78px;
     height: 60px;
@@ -212,7 +218,7 @@ body, html, button {
 
 #wizard-demo-2 {
     position: absolute;
-    top: 110px;
+    top: 20px;
     left: 0px;
     width: 80px;
     height: 40px;
