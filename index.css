@@ -5,16 +5,22 @@
     src: url("fonts/ms_sans_serif.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: "Pixelated MS Sans Serif";
     src: url("fonts/ms_sans_serif_bold.woff") format("woff");
     src: url("fonts/ms_sans_serif_bold.woff2") format("woff2");
     font-weight: bold;
     font-style: normal;
-  }
+}
 
+/* https://github.com/googlefonts/noto-emoji */
+@font-face {
+    font-family: "Noto Color Emoji";
+    src: url("fonts/NotoColorEmoji.ttf");
+    font-style: normal;
+}
 
 body,
 html {
@@ -36,6 +42,10 @@ body, html, button {
 
 .hidden {
     visibility: hidden;
+}
+
+.emoji {
+    font-family:Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,Android Emoji,EmojiSymbols,EmojiOne Mozilla,Twemoji Mozilla,Segoe UI Symbol,Noto Color Emoji Compat,emoji;
 }
 
 .window {
