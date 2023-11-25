@@ -74,3 +74,9 @@ const getRelativePosition = (w1, w2) => {
         return undefined;
     }
 }
+
+const moveAllChildren = (start, destination) => {
+    while (start.firstChild) {
+        destination.appendChild(start.firstChild);
+    }
+}

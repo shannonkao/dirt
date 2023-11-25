@@ -60,6 +60,24 @@
             </window-content>
             <window-footer>Moisture: low</window-footer>
         </garden>
+        <wizard>
+            <window-header>Setup Wizard</window-header>
+            <window-content>
+                <div class="wizard-sidebar">
+                    <span class="emoji">🖥️</span>
+                    <span class="emoji">🖇️</span>
+                    <span class="emoji">📄</span>
+                </div>
+                <div class="wizard-content">
+                    <h3>Start Wizard</h3>
+                    <span>Try dragging some windows next to each other and see what happens.</span>
+                    <div id="wizard-demo-1" class="wizard-window"></div>
+                    <div id="wizard-demo-2" class="wizard-window">
+                        <span class="emoji">👆</span>
+                    </div>
+                </div>
+            </window-content>
+        </wizard>
     </div>
     <div class="container"></div>
 
@@ -84,7 +102,7 @@
                     header.classList.add("window-header");
                     const title = document.createElement("span");
                     title.classList.add("window-title");
-                    title.appendChild(headerContent);
+                    moveAllChildren(headerContent, title);
                     const spacer = document.createElement("span");
                     spacer.classList.add("spacer");
                     const minimize = document.createElement("button");
@@ -100,7 +118,7 @@
 
                     const body = document.createElement("div");
                     body.classList.add("window-content");
-                    body.appendChild(bodyContent);
+                    moveAllChildren(bodyContent, body);
 
                     const footer = document.createElement("div");
                     footer.classList.add("window-footer");
@@ -109,7 +127,7 @@
                     const rightFooter = document.createElement("div");
                     rightFooter.classList.add("footer-right");
                     if (!!footerContent) {
-                        leftFooter.appendChild(footerContent);
+                        moveAllChildren(footerContent, leftFooter);
                     }
                     footer.appendChild(leftFooter);
                     footer.appendChild(rightFooter);
