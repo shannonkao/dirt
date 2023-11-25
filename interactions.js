@@ -99,8 +99,10 @@ const garden_sidewalk_1 = async () => {
     sidewalkFooter.innerHTML = "4 object(s)";
     gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span><br><span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span> <span class='emoji wiggle'>🪱</span><br><span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span>";
     await timeout(SPEED * 2);
-    gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt</span><br>dirt dirt 🪱<br>dirt dirt dirt";
+    gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt<br>dirt dirt 🪱</span><br>dirt dirt dirt";
     gardenFooter.innerHTML = "Moisture: moderate";
+    await timeout(SPEED * 4);
+    gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt</span><br>dirt dirt 🪱<br>dirt dirt dirt";
     await timeout(SPEED * 4);
     gardenContent.innerHTML = "dirt dirt dirt<br>dirt dirt 🪱<br>dirt dirt dirt";
     gardenFooter.innerHTML = "Moisture: low";

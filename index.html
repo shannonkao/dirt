@@ -8,15 +8,10 @@
 
 <body>
     <span>To play you will need these emoji to render: <span class="emoji">🪱🌱💧</span></span>
-    <div class="content">
-        <div id="weather" class="window">
-            <div class="window-header">
-                <span class="window-title">5-Day Weather Forecast</span>
-                <span class="spacer"></span>
-                <button disabled>_</button>
-                <button disabled>X</button>
-            </div>
-            <div class="window-content">
+    <div id="all-windows">
+        <weather>
+            <window-header>5-Day Weather Forecast</window-header>
+            <window-content>
                 <div class="weather-week">
                     <div class="weather-day">
                         <span>48/<strong>54</strong></span>
@@ -49,90 +44,131 @@
                         <span class="weather-dow">FRI</span>
                     </div>
                 </div>
-            </div>
-            <div class="window-footer">
-                <div class="footer-left"></div>
-                <div class="footer-right"></div>
-            </div>
-        </div>
-        <div id="sidewalk" class="window" style="width:205px">
-            <div class="window-header">
-                <span class="window-title">Sidewalk</span>
-                <span class="spacer"></span>
-                <button disabled>_</button>
-                <button disabled>X</button>
-            </div>
-            <div class="window-content emoji">
-                🪱🪱🪱🌱🌱🪱
-            </div>
-            <div class="window-footer">
-                <div class="footer-left">4 object(s)</div>
-                <div class="footer-right"></div>
-            </div>
-        </div>
-        <div id="garden" class="window"  style="width:225px">
-            <div class="window-header">
-                <span class="window-title">A little garden</span>
-                <span class="spacer"></span>
-                <button disabled>_</button>
-                <button disabled>X</button>
-            </div>
-            <div class="window-content">
+            </window-content>
+        </weather>
+        <sidewalk>
+            <window-header>Sidewalk</window-header>
+            <window-content>🪱🪱🪱🌱🌱🪱</window-content>
+            <window-footer>4 object(s)</window-footer>
+        </sidewalk>
+        <garden>
+            <window-header>A little garden</window-header>
+            <window-content>
                 dirt dirt dirt<br>
                 dirt dirt 🪱<br>
                 dirt dirt dirt
-            </div>
-            <div class="window-footer">
-                <div class="footer-left">Moisture: low</div>
-                <div class="footer-right"></div>
-            </div>
-        </div>
+            </window-content>
+            <window-footer>Moisture: low</window-footer>
+        </garden>
     </div>
-
+    <div class="container"></div>
 
     <script>
         const DAYS_OF_WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
         (function () {
-            let weatherDows = document.getElementsByClassName("weather-dow");
-            let currentDow = new Date().getDay();
-            for (let day of weatherDows) {
-                day.innerHTML = DAYS_OF_WEEK[currentDow];
-                currentDow = (currentDow + 1) % 7;
-            }
-            let weatherWindow = document.getElementById("weather");
-            weatherWindow.querySelector(".footer-left").innerHTML = new Date().toLocaleDateString([], {hour: 'numeric', minute:'2-digit', hour12: true});
+            const generate = () => {
+                const container = document.querySelector(".container");
+                const windows = document.getElementById("all-windows").children;
+                for (let w of windows) {
+                    const id = w.tagName.toLowerCase();
+                    const headerContent = w.querySelector("window-header");
+                    const bodyContent = w.querySelector("window-content");
+                    const footerContent = w.querySelector("window-footer");
 
-            let currentWindow = undefined;
-            let mouseOffset = [0, 0];
-            let zIndex = 1;
-            const windows = document.getElementsByClassName("window");
-            for (let w of windows) {
-                w.style.left = 20 + Math.random() * (document.body.scrollWidth * 0.6);
-                w.style.top = 20 + Math.random() * (document.body.scrollHeight * 0.5);
+                    const div = document.createElement("div");
+                    div.id = id;
+                    div.classList.add("window")
 
-                const header = w.getElementsByClassName("window-header")[0];
-                header.addEventListener('mousedown', (e) => {
-                    e.preventDefault()
-                    currentWindow = w;
-                    mouseOffset[0] = e.offsetX;
-                    mouseOffset[1] = e.offsetY;
-                    zIndex += 1;
-                    currentWindow.style.zIndex = zIndex;
-                })
-                document.addEventListener('mouseup', (e) => {
-                    e.preventDefault();
-                    checkInteractions(currentWindow, windows);
-                    currentWindow = undefined;
-                })
-                document.addEventListener('mousemove', (e) => {
-                    if (!!currentWindow) {
-                        e.preventDefault()
-                        currentWindow.style.left = e.clientX - mouseOffset[0];
-                        currentWindow.style.top = e.clientY - mouseOffset[1];
+                    const header = document.createElement("div");
+                    header.classList.add("window-header");
+                    const title = document.createElement("span");
+                    title.classList.add("window-title");
+                    title.appendChild(headerContent);
+                    const spacer = document.createElement("span");
+                    spacer.classList.add("spacer");
+                    const minimize = document.createElement("button");
+                    minimize.disabled = true;
+                    minimize.innerHTML = "_";
+                    const close = document.createElement("button");
+                    close.disabled = true;
+                    close.innerHTML = "X";
+                    header.appendChild(title);
+                    header.appendChild(spacer);
+                    header.appendChild(minimize);
+                    header.appendChild(close);
+
+                    const body = document.createElement("div");
+                    body.classList.add("window-content");
+                    body.appendChild(bodyContent);
+
+                    const footer = document.createElement("div");
+                    footer.classList.add("window-footer");
+                    const leftFooter = document.createElement("div");
+                    leftFooter.classList.add("footer-left");
+                    const rightFooter = document.createElement("div");
+                    rightFooter.classList.add("footer-right");
+                    if (!!footerContent) {
+                        leftFooter.appendChild(footerContent);
                     }
-                })
+                    footer.appendChild(leftFooter);
+                    footer.appendChild(rightFooter);
+
+                    div.appendChild(header);
+                    div.appendChild(body);
+                    div.appendChild(footer);
+                    container.appendChild(div);
+                }
+                document.getElementById("all-windows").innerHTML = "";
             }
+
+            const initialize = () => {
+                let weatherDows = document.getElementsByClassName("weather-dow");
+                let currentDow = new Date().getDay();
+                for (let day of weatherDows) {
+                    day.innerHTML = DAYS_OF_WEEK[currentDow];
+                    currentDow = (currentDow + 1) % 7;
+                }
+                let weatherWindow = document.getElementById("weather");
+                weatherWindow.querySelector(".footer-left").innerHTML = new Date().toLocaleDateString([], {hour: 'numeric', minute:'2-digit', hour12: true});
+            }
+
+            const setupEventHandlers = () => {
+                let currentWindow = undefined;
+                let mouseOffset = [0, 0];
+                let zIndex = 1;
+                const windows = document.getElementsByClassName("window");
+                for (let w of windows) {
+                    w.style.left = 20 + Math.random() * (document.body.scrollWidth * 0.6);
+                    w.style.top = 20 + Math.random() * (document.body.scrollHeight * 0.5);
+
+                    const header = w.getElementsByClassName("window-header")[0];
+                    header.addEventListener('mousedown', (e) => {
+                        e.preventDefault()
+                        currentWindow = w;
+                        mouseOffset[0] = e.offsetX;
+                        mouseOffset[1] = e.offsetY;
+                        zIndex += 1;
+                        currentWindow.style.zIndex = zIndex;
+                    })
+                    document.addEventListener('mouseup', (e) => {
+                        e.preventDefault();
+                        checkInteractions(currentWindow, windows);
+                        currentWindow = undefined;
+                    })
+                    document.addEventListener('mousemove', (e) => {
+                        if (!!currentWindow) {
+                            e.preventDefault()
+                            currentWindow.style.left = e.clientX - mouseOffset[0];
+                            currentWindow.style.top = e.clientY - mouseOffset[1];
+                        }
+                    })
+                }
+            }
+
+            generate();
+            initialize();
+            setupEventHandlers();
         })();
     </script>
 </body>
