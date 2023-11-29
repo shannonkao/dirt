@@ -59,7 +59,7 @@
             </window-content>
             <window-footer>Moisture: low</window-footer>
         </garden>
-        <wizard>
+        <wizard nofooter closable minimizable>
             <window-header>Setup Wizard</window-header>
             <window-content>
                 <div class="wizard-sidebar">
@@ -69,14 +69,14 @@
                 </div>
                 <div class="wizard-content">
                     <h3>Start Wizard</h3>
-                    <span>Drag windows next to each other to see what happens.</span>
+                    <span>Place windows next to each other and see what happens.</span>
                     <div class="wizard-demo">
                         <div id="wizard-demo-1" class="wizard-window"></div>
                         <div id="wizard-demo-2" class="wizard-window">
                             <span class="emoji">👆</span>
                         </div>
                     </div>
-                    <div>To play you will need these emoji to render: <span class="emoji">🪱🌱💧</span></div>
+                    <div>To play you will need these emoji to render: <span class="emoji wizard-sample">🪱🌱💧</span></div>
                 </div>
             </window-content>
         </wizard>
@@ -108,11 +108,21 @@
                     const spacer = document.createElement("span");
                     spacer.classList.add("spacer");
                     const minimize = document.createElement("button");
-                    minimize.disabled = true;
+                    if (!w.hasAttribute("minimizable")) minimize.disabled = true;
                     minimize.innerHTML = "_";
+                    minimize.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        div.classList.toggle("minimized");
+                    }
                     const close = document.createElement("button");
-                    close.disabled = true;
+                    if (!w.hasAttribute("closable")) close.disabled = true;
                     close.innerHTML = "X";
+                    close.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        div.remove();
+                    }
                     header.appendChild(title);
                     header.appendChild(spacer);
                     header.appendChild(minimize);
@@ -136,7 +146,7 @@
 
                     div.appendChild(header);
                     div.appendChild(body);
-                    div.appendChild(footer);
+                    if (!w.hasAttribute("nofooter")) div.appendChild(footer);
                     container.appendChild(div);
                 }
                 document.getElementById("all-windows").innerHTML = "";
@@ -164,12 +174,14 @@
 
                     const header = w.getElementsByClassName("window-header")[0];
                     header.addEventListener('mousedown', (e) => {
-                        e.preventDefault()
-                        currentWindow = w;
-                        mouseOffset[0] = e.offsetX;
-                        mouseOffset[1] = e.offsetY;
+                        if (e.target.tagName != "BUTTON") {
+                            e.preventDefault()
+                            currentWindow = w;
+                            mouseOffset[0] = e.offsetX;
+                            mouseOffset[1] = e.offsetY;
+                        }
                         zIndex += 1;
-                        currentWindow.style.zIndex = zIndex;
+                        w.style.zIndex = zIndex;
                     })
                     document.addEventListener('mouseup', (e) => {
                         e.preventDefault();

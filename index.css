@@ -40,7 +40,7 @@ body, html, button {
     min-width: 4rem;
 }
 
-.hidden {
+.invisible {
     visibility: hidden;
 }
 
@@ -53,6 +53,11 @@ body, html, button {
     position: absolute;
     border: 2px outset var(--light-grey);
     background-color: var(--grey);
+}
+
+.minimized .window-footer,
+.minimized .window-content {
+    display: none !important;
 }
 
 .window-header {
@@ -156,6 +161,10 @@ body, html, button {
     animation: wiggle 0.5s linear infinite;
 }
 
+#garden {
+    width: 215px;
+}
+
 #garden .window-content {
     line-height: 1.5rem;
 }
@@ -166,10 +175,6 @@ body, html, button {
 
 #wizard {
     width: 340px;
-}
-
-#wizard .window-footer {
-    display: none;
 }
 
 #wizard .window-content {
@@ -206,6 +211,11 @@ body, html, button {
 
 .wizard-window {
     border: 2px dashed black;
+}
+
+.wizard-sample {
+    background: #fff;
+    border: 1px inset var(--grey)
 }
 
 #wizard-demo-1 {

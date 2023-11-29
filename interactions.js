@@ -140,5 +140,5 @@ function spacer(count) {
 }
 
 function emoji_spacer(count) {
-    return `<span class="hidden">${new Array(count).fill("🔳").join("")}</span>`;
+    return `<span class="invisible">${new Array(count).fill("🔳").join("")}</span>`;
 }
