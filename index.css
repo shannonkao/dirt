@@ -213,11 +213,6 @@ body, html, button {
     border: 2px dashed black;
 }
 
-.wizard-sample {
-    background: #fff;
-    border: 1px inset var(--grey)
-}
-
 #wizard-demo-1 {
     position: absolute;
     top: 10px;
