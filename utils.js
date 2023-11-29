@@ -50,7 +50,7 @@ const checkPositions = (interaction, w) => {
     return valid;
 }
 
-const MARGIN = 10;
+const MARGIN = 20;
 
 // Position of w1 RELATIVE TO w2
 // [w1] [w2] -> "left"
