@@ -2,7 +2,7 @@ const SPEED = 300;
 
 const garden_sidewalk = async () => {
     const sidewalkWindow = document.getElementById("sidewalk");
-    const sidewalkContent = sidewalkWindow.getElementsByClassName("window-content")[0];
+    const sidewalkContent = sidewalkWindow.getElementsByClassName("window-content")[0].firstChild;
     const sidewalkFooter = sidewalkWindow.getElementsByClassName("footer-left")[0];
     const gardenWindow = document.getElementById("garden");
     const gardenContent = gardenWindow.getElementsByClassName("window-content")[0];
@@ -76,7 +76,7 @@ const garden_weather = async () => {
 }
 const garden_sidewalk_1 = async () => {
     const sidewalkWindow = document.getElementById("sidewalk");
-    const sidewalkContent = sidewalkWindow.getElementsByClassName("window-content")[0];
+    const sidewalkContent = sidewalkWindow.getElementsByClassName("window-content")[0].firstChild;
     const sidewalkFooter = sidewalkWindow.getElementsByClassName("footer-left")[0];
     const gardenWindow = document.getElementById("garden");
     const gardenContent = gardenWindow.getElementsByClassName("window-content")[0];
@@ -99,12 +99,12 @@ const garden_sidewalk_1 = async () => {
     sidewalkFooter.innerHTML = "4 object(s)";
     gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span><br><span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span> <span class='emoji wiggle'>🪱</span><br><span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span> <span style='color:var(--light-blue)'>dirt</span>";
     await timeout(SPEED * 2);
-    gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt<br>dirt dirt 🪱</span><br>dirt dirt dirt";
+    gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt<br>dirt dirt <span class='emoji'>🪱</span></span><br>dirt dirt dirt";
     gardenFooter.innerHTML = "Moisture: moderate";
     await timeout(SPEED * 4);
-    gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt</span><br>dirt dirt 🪱<br>dirt dirt dirt";
+    gardenContent.innerHTML = "<span style='color:var(--light-blue)'>dirt dirt dirt</span><br>dirt dirt <span class='emoji'>🪱</span><br>dirt dirt dirt";
     await timeout(SPEED * 4);
-    gardenContent.innerHTML = "dirt dirt dirt<br>dirt dirt 🪱<br>dirt dirt dirt";
+    gardenContent.innerHTML = "dirt dirt dirt<br>dirt dirt <span class='emoji'>🪱</span><br>dirt dirt dirt";
     gardenFooter.innerHTML = "Moisture: low";
 }
 
